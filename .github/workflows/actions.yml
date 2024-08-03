@@ -1,0 +1,62 @@
+name: Actions
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5.1.1
+        with:
+          python-version: "3.12"
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: install dependencies
+        run:  poetry install
+
+      - name: Lint/test with pre-commit
+        run: poetry run pre-commit run --all-files
+
+  test:
+    name: Test with Python ${{ matrix.python-version }}
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - "3.12"
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5.1.1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: install dependencies
+        run:  poetry install
+
+      - name: Run tests
+        run: poetry run pytest
+
+      - name: Build
+        run: poetry build

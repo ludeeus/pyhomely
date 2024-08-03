@@ -1,0 +1,12 @@
+*egg*
+__pycache__
+__target__
+.coverage
+coverage.xml
+.vscode
+example.py
+dist
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.venv
