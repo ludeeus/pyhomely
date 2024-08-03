@@ -1,0 +1,52 @@
+{
+	"name": "ludeeus/pyhomely",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"[python]": {
+					"editor.codeActionsOnSave": {
+						"source.fixAll": "always",
+						"source.organizeImports": "always"
+					},
+					"editor.formatOnSave": true,
+					"editor.defaultFormatter": "charliermarsh.ruff"
+				},
+				"coverage-gutters.customizable.context-menu": true,
+				"coverage-gutters.customizable.status-bar-toggler-watchCoverageAndVisibleEditors-enabled": true,
+				"coverage-gutters.showGutterCoverage": false,
+				"coverage-gutters.showLineCoverage": true,
+				"coverage-gutters.xmlname": "coverage.xml",
+				"python.analysis.extraPaths": [
+					"${workspaceFolder}/src"
+				],
+				"python.formatting.provider": "ruff format",
+				"python.linting.enabled": true,
+				"python.linting.mypyEnabled": true,
+				"python.testing.cwd": "${workspaceFolder}",
+				"python.testing.pytestArgs": [
+					"--cov-report=xml"
+				],
+				"python.testing.pytestEnabled": true,
+				"ruff.importStrategy": "fromEnvironment",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"extensions": [
+					"be5invis.toml",
+					"GitHub.copilot",
+					"ms-python.python",
+					"charliermarsh.ruff",
+					"ms-python.vscode-pylance",
+					"ryanluker.vscode-coverage-gutters"
+				]
+			}
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/poetry:2": {},
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": false,
+			"version": "3.12"
+		}
+	},
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"updateContentCommand": "poetry install && poetry run pre-commit install"
+}

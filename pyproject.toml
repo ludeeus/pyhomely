@@ -1,0 +1,106 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry]
+authors = ["Ludeeus <ludeeus@ludeeus.dev>"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+exclude = ['**/__pycache__']
+include = ["pyhomely", "pyhomely.*", "LICENCE.md"]
+license = "MIT"
+description = ""
+maintainers = ["Ludeeus <ludeeus@ludeeus.dev>"]
+name = "pyhomely"
+readme = "README.md"
+repository = "https://github.com/ludeeus/pyhomely"
+version = "0"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "^3.10"
+python-socketio = {version = "^5", extras = ["asyncio_client"]}
+
+[tool.poetry.dev-dependencies]
+codespell = "2.3.0"
+coverage = {version = "7.6.0", extras = ["toml"]}
+mypy = "1.11.0"
+pre-commit = "3.8.0"
+pre-commit-hooks = "4.6.0"
+pytest = "8.3.2"
+pytest-asyncio = "0.23.8"
+pytest-cov = "5.0.0"
+ruff = "0.5.5"
+
+[tool.coverage.run]
+source = ["pyhomely"]
+
+[tool.coverage.report]
+skip_covered = false
+fail_under = 100
+exclude_lines = [
+  "^\\s*if (False|TYPE_CHECKING):"
+]
+
+[tool.mypy]
+platform = "linux"
+python_version = "3.12"
+
+# show error messages from unrelated files
+follow_imports = "normal"
+
+# suppress errors about unsatisfied imports
+ignore_missing_imports = true
+
+# be strict
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+no_implicit_reexport = true
+strict_optional = true
+warn_incomplete_stub = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+
+[tool.pytest]
+asyncio_mode = "strict"
+
+[tool.ruff.lint]
+ignore = [
+  "ANN101",
+  "ANN401",
+  "BLE00",
+  "COM812",
+  "D203",
+  "D213",
+  "EM101",
+  "EM102",
+  "ISC001",
+  "N818",
+  "PLR0913",
+  "PLR2004",
+  "TRY301",
+  "TRY003",
+  "TRY401",
+]
+
+select = ["ALL"]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.ruff.lint.isort]
+known-first-party = ["pyhomely"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
