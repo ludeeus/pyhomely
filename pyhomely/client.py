@@ -15,7 +15,13 @@ from .exceptions import (
     HomelyConnectionError,
     HomelyError,
 )
-from .types import HomelyEvent, HomelyLocation, OauthToken, SubscriptionStatus
+from .types import (
+    HomelyErrorEvent,
+    HomelyEvent,
+    HomelyLocation,
+    OauthToken,
+    SubscriptionStatus,
+)
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -175,14 +181,19 @@ class ApiClient:
     async def subscribe(
         self,
         location_id: str,
-        callback: Callable[[HomelyEvent], Awaitable[None]],
+        callback: Callable[[HomelyErrorEvent | HomelyEvent], Awaitable[None]],
     ) -> None:
         """Subscribe to events."""
-        access_token = await self._get_access_token()
+
+        async def _connection_url() -> str:
+            """Get the connection URL."""
+            access_token = await self._get_access_token()
+            return f"wss://{API_HOST}/?locationId={location_id}&token=Bearer%20{access_token}"
+
         try:
             async with socketio.AsyncSimpleClient() as sio:
                 await sio.connect(
-                    f"wss://{API_HOST}/?locationId={location_id}&token=Bearer%20{access_token}",
+                    url=_connection_url,
                     transports=["websocket"],
                 )
                 while sio.connected:
