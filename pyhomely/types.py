@@ -39,6 +39,12 @@ class HomelyLocation(TypedDict):
     partnerCode: str
 
 
+class HomelyErrorEvent(TypedDict):
+    """Homely error event."""
+
+    message: str | list[str]
+
+
 class HomelyEvent(TypedDict):
     """Homely event."""
 
