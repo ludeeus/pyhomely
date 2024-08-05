@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime, timezone
-from logging import Logger, getLogger
 from typing import TYPE_CHECKING, Any, Awaitable, cast
 
 import aiohttp
@@ -21,9 +20,6 @@ from .types import HomelyEvent, HomelyLocation, OauthToken, SubscriptionStatus
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-_LOGGER: Logger = getLogger(__package__)
-_WS_LOGGER: Logger = getLogger(f"{__package__}.ws")
-
 
 class ApiClient:
     """Class for interacting with the Homely API."""
@@ -34,7 +30,6 @@ class ApiClient:
         username: str,
         password: str,
         client_session: aiohttp.ClientSession,
-        dev: bool = False,
         **_: Any,
     ) -> None:
         """Initialize the API client."""
@@ -42,7 +37,6 @@ class ApiClient:
         self._subscription_status = SubscriptionStatus.DISCONNECTED
         self._username = username
         self._password = password
-        self._dev = dev
         self._oauth_token: OauthToken | None = None
 
     @property
@@ -186,10 +180,7 @@ class ApiClient:
         """Subscribe to events."""
         access_token = await self._get_access_token()
         try:
-            async with socketio.AsyncSimpleClient(
-                logger=_WS_LOGGER,
-                engineio_logger=_WS_LOGGER,
-            ) as sio:
+            async with socketio.AsyncSimpleClient() as sio:
                 await sio.connect(
                     f"wss://{API_HOST}/?locationId={location_id}&token=Bearer%20{access_token}",
                     transports=["websocket"],
