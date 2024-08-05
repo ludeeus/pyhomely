@@ -190,18 +190,19 @@ class ApiClient:
                     await callback(event[1])
         except asyncio.CancelledError:
             self._subscription_status = SubscriptionStatus.DISCONNECTED
+        except HomelyConnectionError:
+            self._subscription_status = SubscriptionStatus.ERROR
+            raise
+        except (asyncio.TimeoutError, socketio.exceptions.TimeoutError) as exception:
+            self._subscription_status = SubscriptionStatus.ERROR
+            raise HomelyConnectionError(
+                "Timeout error connecting to Homely"
+            ) from exception
+        except socketio.exceptions.SocketIOError as exception:
+            self._subscription_status = SubscriptionStatus.ERROR
+            raise HomelyConnectionError(
+                f"Could not communicate with Homely - {exception}"
+            ) from exception
         except Exception as exception:  # pylint: disable=broad-except
             self._subscription_status = SubscriptionStatus.ERROR
-            if isinstance(exception, HomelyConnectionError):
-                raise
-            if isinstance(
-                exception, (asyncio.TimeoutError, socketio.exceptions.TimeoutError)
-            ):
-                raise HomelyConnectionError(
-                    "Timeout error connecting to Homely"
-                ) from exception
-            if isinstance(exception, socketio.exceptions.SocketIOError):
-                raise HomelyConnectionError(
-                    f"Could not communicate with Homely - {exception}"
-                ) from exception
             raise HomelyError(f"Unexpected error - {exception}") from exception
