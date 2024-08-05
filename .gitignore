@@ -4,7 +4,6 @@ __target__
 .coverage
 coverage.xml
 .vscode
-example.py
 dist
 .mypy_cache
 .pytest_cache
