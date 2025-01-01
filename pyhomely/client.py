@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime, timezone
-from typing import TYPE_CHECKING, Any, Awaitable, Mapping, cast
+from typing import TYPE_CHECKING, cast
 
 import aiohttp
 import aiohttp.typedefs
@@ -25,7 +25,8 @@ from .types import (
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Callable
+    from collections.abc import Awaitable, Callable, Mapping
+    from typing import Any
 
 
 class ApiClient:
