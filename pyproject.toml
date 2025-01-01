@@ -76,7 +76,6 @@ asyncio_mode = "strict"
 
 [tool.ruff.lint]
 ignore = [
-  "ANN101",
   "ANN401",
   "BLE00",
   "COM812",
