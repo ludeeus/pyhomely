@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from typing import TYPE_CHECKING, cast
 
 import aiohttp
+import aiohttp.typedefs
 import socketio
 
 from .const import API_HOST
@@ -24,7 +25,7 @@ from .types import (
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Awaitable, Callable
+    from collections.abc import Awaitable, Callable, Mapping
     from typing import Any
 
 
@@ -78,7 +79,7 @@ class ApiClient:
         method: str = "GET",
         *,
         params: list[tuple[str, str | int]] | None = None,
-        headers: dict[str, str] | None = None,
+        headers: Mapping[str, str] | None = None,
         data: Any | None = None,
         timeout: float = 10.0,
         force_new_token: bool = False,
@@ -86,22 +87,23 @@ class ApiClient:
     ) -> Any:
         """Call the API endpoint and return the response."""
         access_token = None if force_new_token else await self._get_access_token()
+        headers = {
+            aiohttp.hdrs.CONTENT_TYPE: "application/json",
+            aiohttp.hdrs.ACCEPT: "application/json",
+            **(
+                {aiohttp.hdrs.AUTHORIZATION: f"Bearer {access_token}"}
+                if access_token
+                else {}
+            ),
+            **(headers or {}),
+        }
         try:
             async with self._client_session.request(
                 method=method,
                 url=f"https://{API_HOST}/homely/{endpoint}",
                 params=params,
                 json=data,
-                headers={
-                    aiohttp.hdrs.CONTENT_TYPE: "application/json",
-                    aiohttp.hdrs.ACCEPT: "application/json",
-                    **(
-                        {aiohttp.hdrs.AUTHORIZATION: f"Bearer {access_token}"}
-                        if access_token
-                        else {}
-                    ),
-                    **(headers or {}),
-                },
+                headers=headers,
                 timeout=aiohttp.ClientTimeout(total=timeout),
             ) as response:
                 json_response: Any = None
