@@ -24,8 +24,8 @@ from .types import (
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Callable
-    from typing import Any, Awaitable
+    from collections.abc import Awaitable, Callable
+    from typing import Any
 
 
 class ApiClient:
