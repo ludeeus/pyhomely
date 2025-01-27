@@ -33,7 +33,7 @@ pre-commit-hooks = "5.0.0"
 pytest = "8.3.4"
 pytest-asyncio = "0.25.2"
 pytest-cov = "6.0.0"
-ruff = "0.8.4"
+ruff = "0.9.3"
 
 [tool.coverage.run]
 source = ["pyhomely"]
