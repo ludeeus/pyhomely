@@ -149,7 +149,7 @@ class ApiClient:
             force_new_token=True,
         )
         self._oauth_token = token = cast(
-            OauthToken,
+            "OauthToken",
             {**response, "updated_at": datetime.now(tz=timezone.utc).timestamp()},
         )
         return token
@@ -163,7 +163,7 @@ class ApiClient:
             data={"grant_type": "refresh_token", "refresh_token": refresh_token},
         )
         self._oauth_token = token = cast(
-            OauthToken,
+            "OauthToken",
             {
                 **response,
                 "updated_at": datetime.now(tz=timezone.utc).timestamp(),
