@@ -1,6 +1,6 @@
 # [pyhomely](https://pypi.org/project/pyhomely/)
 
-![python version](https://img.shields.io/badge/Python-3.12<-->3.12-blue.svg)
+![python version](https://img.shields.io/badge/Python-3.14<-->3.14-blue.svg)
 [![PyPI](https://img.shields.io/pypi/v/pyhomely)](https://pypi.org/project/pyhomely)
 
 

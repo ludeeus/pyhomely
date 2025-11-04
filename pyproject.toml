@@ -20,7 +20,7 @@ repository = "https://github.com/ludeeus/pyhomely"
 version = "0"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.14.0"
 aiohttp = "^3.10"
 python-socketio = {version = "^5", extras = ["asyncio_client"]}
 
@@ -47,7 +47,7 @@ exclude_lines = [
 
 [tool.mypy]
 platform = "linux"
-python_version = "3.12"
+python_version = "3.14"
 
 # show error messages from unrelated files
 follow_imports = "normal"
