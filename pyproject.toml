@@ -26,7 +26,7 @@ python-socketio = {version = "^5", extras = ["asyncio_client"]}
 
 [tool.poetry.dev-dependencies]
 codespell = "2.4.1"
-coverage = {version = "7.13.2", extras = ["toml"]}
+coverage = {version = "7.16.0", extras = ["toml"]}
 mypy = "1.19.1"
 pre-commit = "4.5.1"
 pre-commit-hooks = "6.0.0"
