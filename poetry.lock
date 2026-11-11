@@ -1046,46 +1046,47 @@ testing = ["process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
 name = "python-engineio"
-version = "4.11.2"
+version = "4.15.1"
 description = "Engine.IO server and client for Python"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_engineio-4.11.2-py3-none-any.whl", hash = "sha256:f0971ac4c65accc489154fe12efd88f53ca8caf04754c46a66e85f5102ef22ad"},
-    {file = "python_engineio-4.11.2.tar.gz", hash = "sha256:145bb0daceb904b4bb2d3eb2d93f7dbb7bb87a6a0c4f20a94cc8654dec977129"},
+    {file = "python_engineio-4.15.1-py3-none-any.whl", hash = "sha256:745cb3c07701c719a2906439a00b67e44ef042904036568530a2c3a8cf18c89a"},
+    {file = "python_engineio-4.15.1.tar.gz", hash = "sha256:1a412e798a90c64fabe7b20798939ae6d4a03f34da8a33d5a21a25a8bbbc3612"},
 ]
 
 [package.dependencies]
 simple-websocket = ">=0.10.0"
 
 [package.extras]
-asyncio-client = ["aiohttp (>=3.4)"]
+asyncio-client = ["aiohttp (>=3.11)"]
 client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
-docs = ["sphinx"]
+dev = ["tox"]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "python-socketio"
-version = "5.16.0"
+version = "5.18.1"
 description = "Socket.IO server and client for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_socketio-5.16.0-py3-none-any.whl", hash = "sha256:d95802961e15c7bd54ecf884c6e7644f81be8460f0a02ee66b473df58088ee8a"},
-    {file = "python_socketio-5.16.0.tar.gz", hash = "sha256:f79403c7f1ba8b84460aa8fe4c671414c8145b21a501b46b676f3740286356fd"},
+    {file = "python_socketio-5.18.1-py3-none-any.whl", hash = "sha256:e768c473842be811f6dd24bd0a49cd0d4a0c994182e3eba23cc9d1489c7a697e"},
+    {file = "python_socketio-5.18.1.tar.gz", hash = "sha256:07ab0e7c94a52833a67af1dc05958ad6fb0de69adc87de9198a61b22588c40d4"},
 ]
 
 [package.dependencies]
 aiohttp = {version = ">=3.4", optional = true, markers = "extra == \"asyncio-client\""}
 bidict = ">=0.21.0"
-python-engineio = ">=4.11.0"
+python-engineio = ">=4.15.1"
 
 [package.extras]
 asyncio-client = ["aiohttp (>=3.4)"]
 client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
 dev = ["tox"]
-docs = ["sphinx"]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "pyyaml"
